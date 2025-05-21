@@ -17,3 +17,5 @@ pytest-mock==3.14.0
 pytest-asyncio==0.23.6
 pytest-anyio== 0.0.0
 httpx==0.28.1
+
+alembic==1.13.1

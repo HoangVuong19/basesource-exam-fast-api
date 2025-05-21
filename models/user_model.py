@@ -10,6 +10,6 @@ class User(BaseModel):
 
     id = Column(String(36), primary_key=True, default=uuid.uuid4)
     name = Column(String, unique=True, index=True, nullable=False)
-    username = Column(String, nullable=False)
+    email = Column(String, nullable=False)
     mfa_enabled = Column(Boolean, nullable=True)
     del_flag = Column(Boolean, nullable=True)
