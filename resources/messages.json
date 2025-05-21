@@ -13,5 +13,15 @@
     "http_code": 200,
     "error_code": "RESOURCE_NOT_FOUND",
     "message": "Resource not found"
+  },
+  "USER_NOT_FOUND": {
+    "http_code": 200,
+    "error_code": "USER_NOT_FOUND",
+    "message": "User does not exist in the system"
+  },
+  "COGNITO_ERROR": {
+    "http_code": 200,
+    "error_code": "COGNITO_ERROR",
+    "message": "Cognito error occurred"
   }
 }

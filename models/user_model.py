@@ -6,7 +6,7 @@ from models.base_model import BaseModel
 
 
 class User(BaseModel):
-    __tablename__ = "users"
+    __tablename__ = "user"
 
     id = Column(String(36), primary_key=True, default=uuid.uuid4)
     name = Column(String, unique=True, index=True, nullable=False)

@@ -21,3 +21,13 @@ class InvalidSession(AppException):
 class ResourceNotFound(AppException):
     def __init__(self):
         super().__init__("RESOURCE_NOT_FOUND")
+
+
+class UserNotFoundError(AppException):
+    def __init__(self):
+        super().__init__("USER_NOT_FOUND")
+
+
+class CognitoError(AppException):
+    def __init__(self):
+        super().__init__("COGNITO_ERROR")

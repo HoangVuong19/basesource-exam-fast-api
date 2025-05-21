@@ -22,7 +22,7 @@ depends_on: Union[str, Sequence[str], None] = None
 
 def upgrade() -> None:
     op.create_table(
-        "users",
+        "user",
         sa.Column(
             "id",
             postgresql.UUID(as_uuid=True),
@@ -39,14 +39,18 @@ def upgrade() -> None:
             server_default=sa.func.current_timestamp(),
             nullable=True,
         ),
-        sa.Column("created_by", sa.String(length=255), nullable=True),
+        sa.Column(
+            "created_by", sa.String(length=255), nullable=True, server_default="SYS"
+        ),
         sa.Column(
             "updated_at",
             sa.DateTime(timezone=False),
             server_default=sa.func.current_timestamp(),
             nullable=True,
         ),
-        sa.Column("updated_by", sa.String(length=255), nullable=True),
+        sa.Column(
+            "updated_by", sa.String(length=255), nullable=True, server_default="SYS"
+        ),
     )
 
 
