@@ -12,7 +12,7 @@
 
 - Dev run
 
-> fastapi dev main.py
+> fastapi run main.py
 
 - Initialize alembic
 
