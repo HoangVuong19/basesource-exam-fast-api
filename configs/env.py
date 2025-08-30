@@ -2,7 +2,7 @@ import os
 from functools import lru_cache
 from typing import Literal
 
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
@@ -19,13 +19,8 @@ class Settings(BaseSettings):
     database_port: str = os.environ.get("DATABASE_PORT")
     database_name: str = os.environ.get("DATABASE_NAME")
     system_log_file: str | None = os.environ.get("SYSTEM_LOG_FILE")
-    client_id: str = os.environ.get("CLIENT_ID")
-    user_pool_id: str = os.environ.get("USER_POOL_ID")
-    region_name: str = os.environ.get("REGION_NAME")
-    client_secret: str = os.environ.get("CLIENT_SECRET")
 
-    class Config:
-        env_file = ".env"
+    model_config = SettingsConfigDict(env_file=".env")
 
 
 @lru_cache

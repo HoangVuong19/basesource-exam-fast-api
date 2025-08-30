@@ -2,8 +2,9 @@ from datetime import datetime
 from http import HTTPStatus
 
 from fastapi.responses import JSONResponse
+from pydantic import BaseModel
 
-from exceptions.exam_exception import ExamException
+from exceptions.app_exception import AppException
 
 
 def serialize_data(data: any) -> any:
@@ -16,6 +17,9 @@ def serialize_data(data: any) -> any:
     Returns:
         Any: Serialized data.
     """
+    if isinstance(data, BaseModel):
+        return data.model_dump(mode="json", by_alias=True)
+
     if hasattr(data, "__dict__"):
         data_dict: dict[str, any] = data.__dict__
         data = {k: v for k, v in data_dict.items() if not k.startswith("_")}
@@ -34,17 +38,24 @@ def serialize_data(data: any) -> any:
 
 def response_success(data: any):
     return JSONResponse(
-        content={"success": True, "data": serialize_data(data), "error": None},
+        content={"success": True, "data": serialize_data(data), "errors": []},
         status_code=HTTPStatus.OK,
     )
 
 
-def response_fail(exc: ExamException):
+def response_fail(exc: AppException | list[AppException]):
+    if isinstance(exc, list):
+        errors = [{"code": e.error_code, "message": e.message} for e in exc]
+        status_code = exc[0].http_code if exc else HTTPStatus.INTERNAL_SERVER_ERROR
+    else:
+        errors = [{"code": exc.error_code, "message": exc.message}]
+        status_code = exc.http_code
+
     return JSONResponse(
         content={
             "success": False,
             "data": None,
-            "error": {"code": exc.error_code, "message": exc.message},
+            "errors": errors,
         },
-        status_code=exc.http_code,
+        status_code=status_code,
     )

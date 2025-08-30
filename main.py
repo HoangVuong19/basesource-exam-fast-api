@@ -3,7 +3,6 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from configs.env import get_settings
 from controllers.common_controller import common_router
-from controllers.auth_controller import auth_router
 from exceptions.app_exception import AppException
 from exceptions.handler import app_exception_handler
 from exceptions.handler import system_exception_handler
@@ -18,7 +17,6 @@ app = FastAPI(title=settings.app_name, version=settings.api_version)
 # includes all routers of the app
 api_router = APIRouter()
 api_router.include_router(common_router, prefix="", tags=["common"])
-api_router.include_router(auth_router, prefix="/auth", tags=["authentication"])
 
 app.include_router(api_router, prefix=settings.api_prefix)
 
@@ -32,7 +30,7 @@ for exc, handler in __EXCEPTION_HANDLERS__:
     app.add_exception_handler(exc, handler)
 
 # add middlewares
-__MIDDLEWARES__ = [RequestLoggingMiddleware, DatabaseSessionMiddleware, AuthMiddleware]
+__MIDDLEWARES__ = [AuthMiddleware, RequestLoggingMiddleware, DatabaseSessionMiddleware]
 
 for middleware in __MIDDLEWARES__.__reversed__():
     app.add_middleware(middleware)

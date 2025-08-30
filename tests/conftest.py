@@ -32,9 +32,3 @@ def suppress_sqlalchemy_logs():
     logging.getLogger("sqlalchemy.engine").setLevel(logging.ERROR)
     logging.getLogger("sqlalchemy.pool").setLevel(logging.ERROR)
     logging.getLogger("sqlalchemy.dialects").setLevel(logging.ERROR)
-
-
-@pytest.fixture(autouse=True)
-def mock_boto_client(mocker):
-    mock_boto_client = mocker.patch("boto3.client", return_value=mocker.MagicMock())
-    yield mock_boto_client

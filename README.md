@@ -1,10 +1,10 @@
 - Create python venv
 
-> py -m venv .venv
+> /opt/homebrew/bin/python3.12 -m venv .venv
 
 - Use Venv
 
-> .\.venv\Scripts\activate
+> . .venv/bin/activate
 
 - Install libs
 
