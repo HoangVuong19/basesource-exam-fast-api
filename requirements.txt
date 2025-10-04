@@ -15,8 +15,11 @@ pytest==8.2.2
 pytest-mock==3.14.0
 pytest-asyncio==0.23.6
 pytest-anyio==0.0.0
+pytest-cov==6.2.1
 httpx==0.28.1
 
 alembic==1.13.1
 pyhumps==3.8.0
 tzdata==2024.1
+python-dotenv==1.1.1
+black==25.9.0
